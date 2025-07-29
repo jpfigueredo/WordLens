@@ -20,6 +20,7 @@ public class AnaliseBean {
         }
     }
 
+    public String getFrase() { return frase; }
     public void setFrase(String frase) { this.frase = frase; }
     public Map<String,Integer> getContagens() { return contagens; }
 }

@@ -4,16 +4,28 @@
       xmlns:p="http://primefaces.org/ui">
 <h:head>
     <title>Word Lens Analyzer</title>
+    <h:outputStylesheet name="css/style.css" library="css"/>
 </h:head>
 <h:body>
     <h:form id="form">
-        <p:panel header="Análise de Frase">
+        <p:panel header="#{msg['titulo']}">
             <p:inputTextarea id="frase" value="#{analiseBean.frase}" rows="5" cols="60"/>
-            <p:commandButton value="Analisar" action="#{analiseBean.analisar}" update="resultPanel"/>
+            <p:commandButton value="#{msg['botao.analisar']}"
+                             action="#{analiseBean.analisar}"
+                             update="displayPanel resultPanel"/>
         </p:panel>
+
+        <p:panel id="displayPanel" rendered="#{not empty analiseBean.frase}">
+            <h:outputText value="#{msg['frase.citada']}: «#{analiseBean.frase}»"
+                          styleClass="frase-citada"/>
+        </p:panel>
+
         <p:panel id="resultPanel" rendered="#{not empty analiseBean.contagens}">
-            <h:outputText value="Palavras distintas: #{analiseBean.contagens.size()}"/>
-            <p:dataTable value="#{analiseBean.contagens}" var="entry">
+            <h:outputText value="#{msg['resultado.palavras']}: #{analiseBean.contagens.size()}"
+                          styleClass="resultado-titulo"/>
+            <p:dataTable value="#{analiseBean.contagens}"
+                         var="entry"
+                         styleClass="resultado-tabela">
                 <p:column headerText="Palavra">
                     <h:outputText value="#{entry.key}"/>
                 </p:column>
